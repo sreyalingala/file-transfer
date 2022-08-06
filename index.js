@@ -62,6 +62,7 @@ copyURLBtn.addEventListener("click", () => {
   
     // disable the button
     emailForm[2].setAttribute("disabled", "true");
+    emailForm[2].innerText = "Sending";
   
     const url = fileURL.value;
   
@@ -80,8 +81,8 @@ copyURLBtn.addEventListener("click", () => {
     })
       .then((res) => res.json())
       .then((data) => {
-          if (data.success) {
-              sharingContainer.style.display = "none"
+        if (data.success) {
+            sharingContainer.style.display = "none";
           }
       });
   });
@@ -129,7 +130,8 @@ copyURLBtn.addEventListener("click", () => {
   const onFileUploadSuccess = (res) => {
     fileInput.value = ""; // reset the input
     status.innerText = "Uploaded";
-
+    emailForm[2].removeAttribute("disabled");
+    emailForm[2].innerText = "Send";
     progressContainer.style.display = "none";
 
   const { file: url } = JSON.parse(res);
