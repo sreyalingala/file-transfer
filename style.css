@@ -9,14 +9,15 @@
     font-family: system-ui;
     background: var(--main-bg-color);
     height: 98vh;
+    overflow: hidden;
+
 }
 
-.image-vector{
+.image-vector {
     width: 50vw;
     height: 50vh;
     background: url(/undraw-upload.svg) no-repeat center;
     background-size: contain;
-  
   }
 
 body,
@@ -176,7 +177,6 @@ body,
   color: #607d8b;
 }
 
-
 .sharing-container img {
   height: 22px;
   width: 30px;
@@ -187,7 +187,7 @@ body,
   background: #f5fcff;
 }
 
-.email-container form{
+.email-container form {
   border: 2px solid var(--border-color);
   width: 100%;
   padding: 15px;
@@ -197,7 +197,8 @@ body,
   flex-direction: column;
   align-items: center;
 }
-.email-container, .send-btn-container {
+.email-container, 
+.send-btn-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -215,7 +216,7 @@ body,
   text-align: center;
 }
 
-.email-container input:focus{
+.email-container input:focus {
   outline: none;
 }
 
@@ -236,3 +237,22 @@ body,
   color: #607d8b;
   cursor: pointer;
 }
+
+.toast {
+    position: absolute;
+    bottom: 10px;
+    right: 50%;
+    transform: translate(50%, 60px);
+    padding: 10px 20px;
+    background: var(--light-blue);
+    color: #fff;
+    border-radius: 5px;
+    font-size: 18px;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: transform ease-in-out 0.2s;
+  }
+  
+  .show.toast {
+    transform:translate(50%, 0);
+  }
