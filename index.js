@@ -24,13 +24,15 @@ browseBtn.addEventListener("click", () => {
 
   dropZone.addEventListener("drop", (e) => {
     e.preventDefault();
-    console.log("dropped", e.dataTransfer.files[0].name);
-    if (e.dataTransfer.files.length) {
+    //   console.log("dropped", e.dataTransfer.files[0].name);
+  if (e.dataTransfer.files.length === 1) {
       fileInput.files = e.dataTransfer.files;
       uploadFile();
-    }
+    } else if (e.dataTransfer.files.length > 1) {
+        showToast("You can't upload multiple files");
     dropZone.classList.remove("dragged");
-  });
+    }});
+
   
   dropZone.addEventListener("dragover", (e) => {
     e.preventDefault();
@@ -85,7 +87,7 @@ copyURLBtn.addEventListener("click", () => {
 
   // handle error
   xhr.upload.onerror = function () {
-    alert(`Error during the upload: ${xhr.status}.`); 
+    showToast(`Error in upload: ${xhr.status}.`);  
   };
 
   
