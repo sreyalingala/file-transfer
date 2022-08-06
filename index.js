@@ -4,8 +4,9 @@ const browseBtn = document.querySelector("#browseBtn");
 
 const bgProgress = document.querySelector(".bg-progress");
 const progressPercent = document.querySelector("#progressPercent");
-const progressContainer = document.querySelector(".progress-container")
-const progressBar = document.querySelector(".progress-bar")
+const progressContainer = document.querySelector(".progress-container");
+const progressBar = document.querySelector(".progress-bar");
+const status = document.querySelector(".status");
 
 browseBtn.addEventListener("click", () => {
     fileInput.click();
@@ -38,7 +39,6 @@ fileInput.addEventListener("change", () => {
   });
 
   const uploadFile = () => {
-
     console.log("file added uploading");
 
     files = fileInput.files;
@@ -46,7 +46,7 @@ fileInput.addEventListener("change", () => {
     formData.append("myfile", files[0]);
 
     //show the uploader
-  progressContainer.style.display = "block"
+    progressContainer.style.display = "block";
 
     // upload file
   const xhr = new XMLHttpRequest();
@@ -56,27 +56,34 @@ fileInput.addEventListener("change", () => {
   xhr.upload.onprogress = function (event) {
     let percent = Math.round((100 * event.loaded) / event.total);
     progressPercent.innerText = percent;
-    const scaleX = `scaleX(${percent / 100})`
-    bgProgress.style.transform = scaleX; 
-    progressBar.style.transform = scaleX; 
+    const scaleX = `scaleX(${(percent / 100).toFixed(2)})`;
+    console.log((percent / 100).toFixed(2));
+    bgProgress.style.transform = scaleX;
+    progressBar.style.transform = scaleX;
   };
 
   // handle error
   xhr.upload.onerror = function () {
-    console.log(`Error during the upload: ${xhr.status}.`);
+    alert(`Error during the upload: ${xhr.status}.`); 
   };
 
   
   // listen for response which will give the link
     xhr.onreadystatechange = function () {
       if (xhr.readyState == XMLHttpRequest.DONE) {
-        fileInput.value = '';
-        console.log(xhr.responseText);
+        onFileUploadSuccess(xhr.responseText);
       }
     };
   
     xhr.open("POST", "http://localhost:3000/api/files");
     xhr.send(formData);
+  };
+  
+  const onFileUploadSuccess = (res) => {
+    fileInput.value = ""; // reset the input
+    status.innerText = "Uploaded";
+    const { file } = JSON.parse(res);
+    console.log(file);
   };
   
   
